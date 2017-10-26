@@ -1,0 +1,99 @@
+//此算法与书中逻辑有点不太一样，书中的更简单。但是不够详细
+class MyQueue{
+	public int capacity;
+	public int size = 0;
+	public Stack s1;
+	public Stack s2;
+	boolean lastActionWasPopOrPeek = false;
+	public MyQueue(int capacity){
+		this.capacity = capacity;
+		s1 = new Stack(capacity);
+		s2 = new Stack(capacity);
+	}
+	
+	public void add(int value){
+		if(isFull()){
+			throw new FullQueueException();
+		}
+		if(lastActionWasPopOrPeek){
+			move(s2, s1);
+			lastActionWasPopOrPeek = false;
+		}
+		s1.push();
+		size ++;
+	}
+
+	public int remove(){
+		if(isEmpty()){
+			throw new EmptyQueueException();
+		}
+		if(lastActionWasPopOrPeek){
+			s2.pop();
+			size --;
+		}
+		move(s1, s2);
+		lastActionWasPopOrPeek = true;
+		s2.pop()
+		size --;	
+	}
+
+	public int peep(){
+		if(lastActionWasPopOrPeek){
+			s2.pop();
+		}
+		move(s1, s2);
+		s2.peep();	
+	}
+
+	public void move(Stack a, Stack b){
+		if(a.size <1 || b.size>=0){
+			throw new Exception()
+		}
+		while(a.size>0){
+			b.push(a.pop());
+		}
+	}
+
+	public boolean isFull(){
+		return size == capacity;
+	}
+
+	public boolean isEmpty(){
+		return size == 0
+	}
+	
+	class Stack{
+		private int[] values;
+		private int capacity;
+		private size = 0;
+		public Stack(int capacity){
+			this.capacity = capacity;
+			values = new int[this.capacity];
+		}
+
+		public void push(int value){
+			if(isFull()){
+				throw new FullStackException()
+			}
+			values[size] = value;
+			size ++ ;
+		}
+
+		public int pop(){
+			if(isEmpty()){
+				throw new EmptyStackException();
+			}
+			int v = values[size-1];
+			size -- ;
+			return v;
+		}
+
+		public int peep(){
+			if(isEmpty()){
+				throw new EmptyStackException();
+			}
+			int v = values[size-1];
+			return v;
+		}
+	}
+}

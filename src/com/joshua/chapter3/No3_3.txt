@@ -1,0 +1,31 @@
+// 实现push和pop
+class SetOfStacks extends Stack{
+	ArrayList<Stack> stacks = new ArrayList<Stack>();
+	public int capacity;
+	public SetOfStacks(int capacity){
+		this.capacity = capacity;
+	}
+
+	public void push(int value){
+		Stack target = getLastStack();
+		if(target.isFull()){
+			Stack newStack = new Stack(capacity);
+			newStack.push(value);
+			stacks.add(newStack);
+		}else{
+			target.push(value);
+		}
+	}
+
+	public int pop(){
+		Stack target = getLastStack();
+		int valueToReturn = target.pop();
+		if(target.isEmpty()) stacks.remove(stack.size()-1);
+		return valueToReturn;
+	}
+	
+	public Stack getLastStack(){
+		if (stacks.size() == 0) return null;
+		return stacks.get(stacks.size() - 1);
+	}
+}

@@ -1,0 +1,13 @@
+TreeNode createMinimalBST(int array[]){
+	return createMinimalBST(array, 0, array.length-1);
+}
+
+TreeNode createMinimalBST(int array[], int start, int end){
+	if(end < start) return null; //注意这个地方的条件，最开始我写的是end-start == 0，通过实际画图演示发现有问题
+	
+	int mid = (start + end + 1)/2;
+	TreeNode n = new TreeNode(array[mid]);
+	n.left = createMinimalBST(array, start, mid-1);
+	n.right = createMinimalBST(array, mid+1, end);
+	return n;
+}

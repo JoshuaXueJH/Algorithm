@@ -1,0 +1,33 @@
+//和书中理念一样，代码不太相同
+public Stack<Integer> sortStack(Stack<Integer> a){
+	Stack<Integer> b = new Stack<Integer>();
+	int temp = a.peek();
+	while(!a.isEmpty()){
+		if(a.peep() <= temp){
+			temp= a.pop();
+			b.push(temp);
+		}else{
+			temp = a.pop();
+			while(b.peek()<temp){
+				a.push(b.pop());
+			}
+			b.push(temp);
+		}
+	}
+	return b;
+}
+
+
+//看完书后改进
+public Stack<Integer> sortStack(Stack<Integer> a){
+	Stack<Integer> b = new Stack<Integer>();
+	
+	while(!a.isEmpty()){
+		int temp= a.pop();
+		while(b.peek()<temp){
+			a.push(b.pop());
+		}
+		b.push(temp);
+	}
+	return b;
+}

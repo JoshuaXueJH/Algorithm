@@ -1,0 +1,23 @@
+boolean searchRoute(Graph g, Node start, Node end){
+	if(start == end) return true;
+	
+	LinkedList<Node> queue = new LinkedList<Node>();
+	
+	for(Node n: g.getNodes()){
+		n.tag == false;
+	}
+	
+	start.tag = true;
+	queue.add(start);
+	while(!q.isEmpty()){
+		Node n = q.removeFirst();
+		if(n != null){
+			if(n == end) return true;
+			for(Node v: n.getAdjacent()){
+				if(v.tag == false) queue.add(v);
+			}
+			
+		}
+	}
+	return false;
+}
