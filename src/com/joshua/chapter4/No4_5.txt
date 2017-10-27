@@ -1,0 +1,15 @@
+//不正确，只是思路
+
+boolean isBinarySearchTree(TreeNode root){
+	return isBinarySearchTree(root, Integer.MIN_VALUE) != Integer.MAX_VALUE;
+}
+
+int isBinarySearchTree(TreeNode root, int num){
+	int temp = num;
+	if(root != null){
+		temp >= inOrder(root.left, num) ? Integer.MAX_VALUE:inOrder(root.left,num);
+		temp >= root.data ? Integer.MAX_VALUE:root.data;
+		temp >= inOrder(root.right, temp) ? Integer.MAX_VALUE:inOrder(root.right,num);
+	}
+	return temp;
+}

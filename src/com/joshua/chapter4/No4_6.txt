@@ -1,0 +1,18 @@
+TreeNode findNext(TreeNode node){
+	if(node == null) return null;
+
+	if(node.right != null){
+		node = node.right;
+		while(node.left != null){
+			node = node.left;
+		}
+		return node;
+	}else{
+		TreeNode x = n.parent;
+		while( x!=null && x.left != n){
+			n = x;
+			x = x.parent;
+		}
+		return x;
+	}
+}
