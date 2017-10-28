@@ -1,0 +1,24 @@
+TreeNode commonAncestor(TreeNode root, TreeNode a, TreeNode b){
+	if(!cover(root, a) ||!cover(root, b)) return null;
+	TreeNode found = find(root);
+	return found;
+}
+
+TreeNode find(TreeNode found){
+	boolean leftFound = cover(found.left, a)&&cover(found.left, b);
+	if(leftFound){
+		found = find(found.left);
+	}
+	boolean rightFound = cover(found.right, a)&&cover(found.right, b);
+	if(rightFound){
+		found = find(found.right);
+	}
+	return found;
+}
+
+boolean cover(TreeNode root, TreeNode n){
+	if(root == null) return false;
+	if(root == n) return true;	
+
+	return (cover(root.left, n) || cover(root.right, n));
+}
