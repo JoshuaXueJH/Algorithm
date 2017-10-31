@@ -1,0 +1,25 @@
+boolean contains(TreeNode n1, TreeNode n2){
+	if(n2 == null) return true;
+	
+	TreeNode node = travase(n1, n2);
+	return isIdentical(node, n2);
+}
+
+TreeNode travase(TreeNode node, TreeNode n2){
+	while(node != null){
+		if(node == n2){
+			return node;
+		}
+		travase(node.left, n2);
+		travase(node.right, n2);
+	}
+}
+
+boolean isIdentical(TreeNode n1, TreeNode n2){
+	while(n1 != null && n2 != null){
+		if(n1 != n2) return false;
+		isIdentical(n1.left, n2.left);
+		isIdentical(n1.right, n2.right);
+	}
+	return true;
+}
