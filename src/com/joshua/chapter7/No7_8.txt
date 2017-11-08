@@ -1,0 +1,90 @@
+public class Board{
+	private Board instance;
+	private Colour[8][8] positions;
+	private int blackNum;
+	private int whiteNum;
+	private Player[] players;
+
+	private Board(){
+		positions = new Colour[9][8];
+		blackNum = 0;	
+		whiteNum = 0;
+		players = new Player[2];
+		players[0] = new Player(Colour.Black);
+		players[1] = new Player(Colour.White);
+	}
+		
+	public static Board getInstance(){
+		if(instance == null) instance = new Board();
+		return instance;
+	}
+
+	public Colour getColour(int i, int j){
+		if(i>=8 || j>=8 || i<=0 ||j<=0) return null;
+		return positions[i][j];
+	}
+	
+	public boolean flipColour(int i, int j){
+		if(i>=8 || j>=8 || i<=0 ||j<=0) return false;	
+		positions[i][j] == Colour.Black ? Colour.White: Colour.Black;
+	}
+
+	public boolean placeIsTaken(int i, int j){
+		if(i>=8 || j>=8 || i<=0 ||j<=0){
+			return true;
+		}else if(positions[i][j] != Black || positions[i][j] != White){
+			return false
+		}else{
+			false;
+		}
+	}
+	
+	public boolean isFull(){...}
+
+	public int getScoreForColour(Colour c){
+		if(c == Colour.Black) return blackNum;
+		return whiteNum;
+	}
+
+	public boolean placeColour(int i, int j, Colour c){
+		if(i>=8 || j>=8 || i<=0 ||j<=0) retrurn false;
+		positions[i][j] = c;
+	}
+}
+
+public abstract Pieces{
+	private Colour colour;
+
+	public Colour getColour(){
+		return colour;
+	}
+}
+
+public class BlackPieces extends Pieces{
+	public BlackPieces(){
+		colour = Colour.Black;
+	}
+}
+
+public class WhitePieces extends Pieces{
+	public WhitePieces(){
+		colour = Colour.White;
+	}
+}
+
+public enum Colour{
+	White, Black
+}
+
+public class Player{
+	private Colour colour;
+
+	public Player(Colour c){
+		colour = c;
+	}
+	
+	public boolean put(int i, int j){
+		if(placeIsTaken(i, j)) return false;
+		Board.getInstance().placeColour(i, j, colour);
+	}	
+}

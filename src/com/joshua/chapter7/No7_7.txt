@@ -1,0 +1,194 @@
+public class Server{
+	private UserManager userManager;
+	private ChatManager chatManager;
+	private GroupChatManager groupChatManager;
+
+	public Server(){
+		userManager = new UserManager();
+		chatManager = new ChatManager();
+		groupChatManager = new GroupChatManager();
+	}
+}
+
+public class UserManager{
+	private HashMap<Integer, User> users;
+	private HashMap<Integer, User> onlineUsers;
+	
+	public UserManager(){...}
+
+	public boolean registerUser(User user){
+		if(users.containsKey(user.getId()){
+			return false;
+		}
+		users.put(user.getId(), user);
+		return true;
+	}
+
+	public boolean removeUser(User user){
+		if(!users.containsKey(user.getId()){
+			return false;
+		}
+		users.remove(user.getId());
+		return true;
+	}
+	
+	public boolean login(User user){
+		if(onlineUsers.containsKey(user.getId()){
+			return false;
+		}
+		onlineUsers.put(user.getId(), user);
+		return true;
+	}
+
+	public boolean logout(User user){
+		if(!onlineUsers.containsKey(user.getId()){
+			return false;
+		}
+		onlineUsers.remove(user.getId());
+		return true;
+	}
+	
+	public HashMap<Integer, User> getOnlineUsers(){return onlineUsers;}
+}
+
+public class ChatManager{
+	private HashMap<Integer, Chat> chats;
+	
+	public ChatManager(){...}
+
+	public boolean startChat(Chat chat){
+		if(chats.containsKey(chat.getChatId()){
+			return false;
+		}
+		chats.put(chat.getChatId(), chat);
+		return true;
+	}
+
+	public boolean endChat(Chat chat){
+		if(!chats.containsKey(chat.getChatId()){
+			return false;
+		}
+		chats.put(chat.getChatId());
+		return true;
+	}
+
+	public HashMap<Integer, Chat> getCurrentChats(){return chats;}
+}
+
+public class GroupChatManager{
+	private HashMap<Integer, GroupChat> chats;
+	
+	public ChatManager(){...}
+
+	public boolean startGroupChat(GroupChat chat){
+		if(chats.containsKey(chat.getChatId()){
+			return false;
+		}
+		chats.put(chat.getChatId(), chat);
+		return true;
+	}
+
+	public boolean endGroupChat(GroupChat chat){
+		if(!chats.containsKey(chat.getChatId()){
+			return false;
+		}
+		chats.put(chat.getChatId());
+		return true;
+	}
+
+	public HashMap<Integer, GroupChat> getCurrentGroupChats(){return chats;}
+}
+
+public class User{
+	private int userId;
+	private String username;
+	private String status;
+	private HashMap<Integer, User> friends;
+	private Chat currentChat;
+	private GroupChat currentGroupChat;
+
+	public User(int, userId, String username){
+		this.userId = userId;
+		this.username = username;
+	}
+
+	public int getId(){return userId;}	
+
+	public void setUsername(String username){this.username = username;}
+	public String getUsername(){return username;}
+
+	public void setStatus(String status){this.status = status;}
+	public String getStatus(){return status;}
+
+	public void setCurrentChat(Chat chat){currentChat = chat;}
+	public Chat getCurrentChat(){return currentChat;}
+
+	public void setCurrentGroupChat(GroupChat groupChat){currentGroupChat = groupChat;}
+	public GroupChat getCurrentGroupChat(){return groupChat;}
+
+	public boolean addFriend(User user){
+		if(friends.containsKey(user.getId()){
+			return false;
+		}
+		friends.put(user.getId(), user);
+		user.getFriends().put(this.getId, this);
+		return true;
+	}
+
+
+	public boolean removeFriend(User user){
+		if(!friends.containsKey(user.getId()){
+			return false;
+		}
+		friends.remove(user.getId());
+		user.getFriends().remove(this.getId);
+		return true;
+	}
+
+
+	public HashMap<Integer, User> getFriends(){return friends;}
+}
+
+public class Chat{
+	private int chatId;
+	private HashMap<Integer, User> users;
+	private String conversation;
+	
+	public Chat(int chatId, User u1, User u2){
+		this.chatId = chatId;
+		users.put(u1.getId(), u1);
+		users.put(u2.getId(), u2);
+		conversation = null;
+	}
+
+	public HashMap<Integer, User> getUsers(){return users;}
+
+	public String getConversation(){return conversation;}
+	public void setConversation(String s){...}
+}
+
+public class GroupChat{
+	private int chatId;
+	private HashMap<Integer, User> users;
+	private String conversation;
+	
+	public Chat(int chatId, User... users){
+		this.chatId = chatId;
+		for(User u: users){
+			users.put(u.getId(), u);
+		}
+		conversation = null;
+	}
+	
+	public void addUser(User u){
+		users.put(u.getId, u);
+	}
+	public boolean removeUser(User u){
+		if(!users.containsKey(u.getId()){
+			return false;
+		}
+		users.remove(u.getId());
+		return false;
+	}
+}
+
