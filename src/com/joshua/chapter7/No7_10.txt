@@ -48,6 +48,7 @@ public abstract Cell{
 	public CellType getType(){return type;}
 	public boolean isBlank(){...}
 	public uncoverAjacentBlank(){...}
+	public int getNumber(){...}
 }
 
 public class Bomb extends Cell{
