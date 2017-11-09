@@ -1,0 +1,85 @@
+public class Minesweeper{
+	private static Minesweeper instance;
+	private Board board;
+	private Player player;
+
+	private Minesweeper(String name){
+		board = new Board();
+		player = new Player(name);
+	}
+	public staitc Minesweeper getInstance(String playerName){
+		if(instance == null) instance = new Minesweeper(playerName);
+		return instance;
+	}
+	public Board getBoard(){return board;}
+	public Player getPlayer(){return player;}
+}
+
+public class Player{
+	private String name;
+
+	public Player(String name){
+		this.name = name;
+	}
+	public String getName(){...}
+	public void setName(String name){...}
+	public uncover(int row, int column){
+		Minesweeper.getInstance().getBoard().getCell(row, column).uncoverCell();
+	}
+}
+
+public class Board{
+	private Cell[][] cells;
+	private boolean[][] uncovered;
+	
+	public Cell getCell(int row, int column){...}
+	public void setCell(int row, int column){...}
+}
+
+public abstract Cell{
+	private CellType type;
+	private int number;
+	private int rowNum;
+	private int columnNum;
+	private boolean flag;
+	
+	public uncoverCell(){...}
+	public void setType(CellType type){this.type = type;}
+	public CellType getType(){return type;}
+	public boolean isBlank(){...}
+	public uncoverAjacentBlank(){...}
+}
+
+public class Bomb extends Cell{
+	public Bomb(int i, int j){
+		type = CellType.Bomb;
+		number = 0;
+		rowNum = i;
+		columnNum = j;
+		flag = false;
+	}
+}
+
+public class Number extends Cell{
+	public Number(int num){
+		type = CellType.Number;
+		number = num;
+		rowNum = i;
+		columnNum = j;
+		flag = false;
+	}
+}
+
+public class Blank extends Cell{
+	public Blank(){
+		type = CellType.Blank;
+		rowNum = i;
+		columnNum = j;
+		falg = false;
+	}
+}
+
+public enum CellType{
+	Bomb, Number, Blank
+}
+
