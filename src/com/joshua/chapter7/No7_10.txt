@@ -32,6 +32,7 @@ public class Board{
 	private Cell[][] cells;
 	private boolean[][] uncovered;
 	
+	public Board(){...}
 	public Cell getCell(int row, int column){...}
 	public void setCell(int row, int column){...}
 }

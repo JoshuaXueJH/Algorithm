@@ -1,0 +1,18 @@
+public int findMagicIndex(int[] array){
+	if(array == null || array.length == 0) return -1;
+
+	return findMagicIndex(array, 0, array.length - 1);
+}
+
+public int findMagicIndex(int[] array, int beginning, int end){
+	int middle = (begining + end) / 2;
+	if(middle < begining || middle > end) return -1;
+	
+	if(array[middle] == middle) return middle;
+
+	if(array[middle] < middle){
+		return findMagicIndex(array, middle + 1, end);
+	}else{
+		return findMagicIndex(array, begining, end - 1);
+	}
+}

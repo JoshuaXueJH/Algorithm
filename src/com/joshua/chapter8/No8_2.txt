@@ -1,0 +1,34 @@
+//开始在做这道题的时候，思路是对的，只不过实现的时候没有注意细节
+//一下的思路和方法与书中的唯一不同是， 书中从结尾处后退，知道退回【0】【0】，以下方式是从【0】【0】开始，一直前进到最终位置。
+
+public ArrayList<Integer[]> findPath(int[][] maze){
+	if(maze == null || maze.length == 0) return null;
+	
+	ArrayList<Point> path = new ArrayList<Point>();	
+	HashSet<Point> failedPoints = new HashSet<Point>();
+	
+	if(findPath(maze, 0, 0, path, failedPoints)){
+		return path;
+	}
+	return null;
+}
+
+public boolean findPath(int[][] maze, int row, int column, ArrayList<Point> path, HashSet<Point> failedPoints){
+	if(row > maze.length -1 || column > maze[0].length || !maze[row][column]){
+		return false;
+	}
+	Point point = new Point(row, column);
+	if(failedPoints.contains(point)){
+		return false;
+	}
+	
+	boolean found = (row == maze.length && column == maze[0].length);
+	
+	if(found || findPath(maze, row + 1, column, path, failedPoints) || findPath(maze, row, column + 1, path, failedPoints)){
+		path.add(point);	
+		return true;
+	}
+	
+	failedPoints.add(point);
+	return false;
+}
