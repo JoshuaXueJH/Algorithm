@@ -1,3 +1,4 @@
+//第一种情况： 没有重复数据
 public int findMagicIndex(int[] array){
 	if(array == null || array.length == 0) return -1;
 
@@ -5,8 +6,8 @@ public int findMagicIndex(int[] array){
 }
 
 public int findMagicIndex(int[] array, int beginning, int end){
+	if(begining > end) return -1;
 	int middle = (begining + end) / 2;
-	if(middle < begining || middle > end) return -1;
 	
 	if(array[middle] == middle) return middle;
 
