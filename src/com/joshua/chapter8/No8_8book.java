@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class No8_8book {
 	public static void main(String[] args) {
-		ArrayList<String> results = printPerms("aaabbc");
+		ArrayList<String> results = printPerms("aacd");
 		for (String str : results) {
 			System.out.println(str);
 		}

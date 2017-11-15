@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class No8_7book {
 
 	public static void main(String[] args) {
-		ArrayList<String> results = getPerms2("abcd");
+		ArrayList<String> results = getPermutation("aacd");
 		for (String str : results) {
 			System.out.println(str);
 		}
