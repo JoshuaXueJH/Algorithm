@@ -1,0 +1,29 @@
+//根本书中的思想，但是没有使用书中的代码，跟书中的代码略有区别，这里使用了递归
+//另外书中标注的两处细节这里没有考虑到，可以进行优化 
+
+int findIndex(Listy listy, int value){
+	int index = 1;
+	while(listy.elementAt(index) != -1 && listy.elementAt(index) != value){
+		index *=2;
+	}
+	if(listy.elementAt(index) == value){
+		return index;
+	}else{
+		return findIndex(listy, value, 0, index);
+	}	
+}
+
+int findIndex(Listy listy, int value, int begin, int end){
+	if(begin <= end){
+		ind middle = (begin + end) / 2;
+		int middleValue = listy.elementAt(middle);
+		if(middleValue == value){
+			return middle;
+		}else if(middleValue < value && middleValue != -1){
+			return findIndex(listy, value, middle + 1, end);
+		}else{
+			return findIndex(listy, value, begin, middle - 1);
+		}
+	}
+	return -1;
+}
