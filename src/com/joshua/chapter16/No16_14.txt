@@ -1,0 +1,90 @@
+Line findBestLine(GraphPoint[] points){
+	HashMapList<Double, Line> linesBySlope = getListOfLines(points);
+	return getBestLine(linesBySlope);
+}
+
+HashMapList<Double, Line> getListOfLines(GraphPoint[] points){
+	HashMapList<Double, Line> linesBySlope = new HashMapList<Double, Line>();
+	for(int i = 0; i < points.length; i++){
+		for(int j = i + 1; i < points.length; j++){
+			Line line = new Line(points[i], points[j]);
+			double key = Line.floorToNearestEplison(line.slope);
+			linesBySlope.put(key, line);
+		}
+	}
+	return linesBySlope;
+}
+
+Line getBestLine(HashMapList<Double, Line> linsBySlope){
+	Line bestLine = null;
+	int bestCount = 0;
+	
+	Set<Double> slopes = linesBySlope.keySet();
+	
+	for(double slope : slopes){
+		AarrayList<Line> lines = linesBySlope.get(slope);
+		for(Line line : lines){
+			int count = countEquivalentLines(linesBySlope, line);
+			
+			if(count > bestCount){
+				bestLine = line;
+				bestCount = count;
+				bestLine.Print();
+				System.out.println(bestCount);
+			}
+		}
+	}
+}
+
+int countEquivalentLines(HashMapList<Doube, Line> linesBySlope, Line line){
+	double key = Line.floorToNearestEplison(line.slope);
+	int count = countEquivalentLines(linesBySlope.get(key), line);
+	count += countEquivalentLines(linesBySlope.get(key - Line.epsilon), line);
+	count += countEquivalentLines(linesBySlope.get(key + Line.epsilon), line);
+	return count;
+}
+
+int countEquivalentLines(ArrayList<Line> lines, Line line){
+	if(lines == null) return 0;
+	
+	int count = 0;
+	for(Line parallelLine : lines){
+		if(parallelLine.isEquivalent(line)){
+			count++;
+		}
+	}
+	return count;
+}
+
+public class Line{
+	public static double epsilon = .0001;
+	public double slope, intercept;
+	private boolean infinite_slope = false;
+	
+	public line(GraphPoint p, GraphPoint q){
+		if(Math.abs(p.x - q.x) > epsilon){
+			slope = (p.y - q.y) / (p.x - q.x);
+			intercept = p.y - p.x * slope;
+		}else{
+			infinite_slope = true;
+			intercept = p.x;
+		}
+	}
+
+	public static double floorToNearestEpsilon(double d){
+		int r = (int) (d / eplison);
+		return ((double) r) * epsilon;
+	}
+
+	public boolean isEquivalent(double a, double b){
+		return (Math.abs(a - b) < spsilon);
+	}
+
+	public boolean isEquivalent(Object o){
+		Line l = (Line) o;
+		if(isEquivalent(l.slope, slope) && isEquivalent(l.intercept, intercept) && (infinite_slop l.infinite_slope){
+			return true;
+		}
+		return false;
+	}
+}
