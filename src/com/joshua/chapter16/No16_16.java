@@ -2,8 +2,8 @@ package com.joshua.chapter16;
 
 public class No16_16 {
 	public static void main(String[] args) {
-		//int[] array = { 1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19 };
-		int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+		int[] array = { 1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19 };
+		//int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		System.out.println(findIndexs(array).toString());
 	}
 
