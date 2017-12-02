@@ -1,13 +1,12 @@
 package com.joshua.chapter16;
 
-public class No16_18 {
+public class No16_18_2 {
 	public static void main(String[] args) {
-		String value = "catcatgocatgogo";
-		String pattern = "aababb";
+		String value = "catcatgocatgogocat";
+		String pattern = "aababba";
 		System.out.println(matchesPattern(pattern, value));
 	}
 
-	// 第一次一气呵成，但是cutValueToPieces和fitsPattern两个方法写的比较容易， 于是在No16_18_2中对本版内容进行了优化
 	public static boolean matchesPattern(String pattern, String value) {
 		int valueLen = value.length();
 		int patternLen = pattern.length();
@@ -17,6 +16,9 @@ public class No16_18 {
 		}
 		if (patternLen == 1) {
 			return true;
+		}
+		if (!pattern.contains("a") || !pattern.contains("b")) {
+			return false;
 		}
 
 		int countA = 0;
@@ -46,55 +48,38 @@ public class No16_18 {
 		}
 
 		for (int i = 0; i < countPosition; i++) {
-			int partA = aLenCandidates[i];
-			int partB = bLenCandidates[i];
-			String[] pieces = cutValueToPieces(value, pattern, partA, partB);
-			if (fitsPattern(pieces, pattern)) {
+			if (cutValueAndValidate(value, pattern, aLenCandidates[i], bLenCandidates[i])) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static String[] cutValueToPieces(String value, String pattern, int partA, int partB) {
-		StringBuilder sb = new StringBuilder();
-		int position = 0;
-		for (int i = 0; i < pattern.length(); i++) {
-			if (pattern.charAt(i) == 'a') {
-				sb.append(value.substring(position, position + partA));
-				position += partA;
-			} else {
-				sb.append(value.substring(position, position + partB));
-				position += partB;
-			}
-			sb.append(" ");
-		}
-		return sb.toString().split(" ");
-	}
-
-	public static boolean fitsPattern(String[] pieces, String pattern) {
+	public static boolean cutValueAndValidate(String value, String pattern, int partA, int partB) {
 		String a = null;
 		String b = null;
 		boolean flagA = false;
 		boolean flagB = false;
+		int position = 0; //切割value的过程中position代表位置
 		for (int i = 0; i < pattern.length(); i++) {
-			char ch = pattern.charAt(i);
-			if (ch == 'a') {
+			if (pattern.charAt(i) == 'a') {
 				if (flagA == false) {
-					a = pieces[i];
+					a = value.substring(position, position + partA);
 					flagA = true;
 				}
-				if (!pieces[i].equals(a)) {
+				if (!value.substring(position, position + partA).equals(a)) {
 					return false;
 				}
+				position += partA;
 			} else {
 				if (flagB == false) {
-					b = pieces[i];
+					b = value.substring(position, position + partB);
 					flagB = true;
 				}
-				if (!pieces[i].equals(b)) {
+				if (!value.substring(position, position + partB).equals(b)) {
 					return false;
 				}
+				position += partB;
 			}
 		}
 		return true;
