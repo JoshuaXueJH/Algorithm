@@ -1,0 +1,31 @@
+//认真研究此算法，过程不复杂，但是不很好理解
+//而且很难想到， java中对于二进制数字的操作比较复杂
+
+int findMissing(ArrayList<BitInteger> array){
+	return findMissing(array, 0);
+}
+
+int findMissing(ArrayList<BitInteger> array, int column){
+	if(column >= BitInteger.INTEGER_SIZE){
+		return 0;
+	}
+
+	ArrayList<BitInteger> oneBits = new ArrayList<BitInteger>();
+	ArrayList<BitInteger> zeroBits = new ArrayList<BitInteger>():
+
+	for(BitInteger item : array){
+		if(item.fetch(column) == 0){
+			zeroBits.add(item);
+		}else{
+			oneBits.add(item);
+		}
+	}
+
+	if(zeroBits.size() <= oneBits.size()){
+		int v = findMissing(zeroBits, column + 1);
+		return (v << 1) | 0;
+	}else{
+		int v = findMissing(oneBits, column + 1);
+		return (v << 1) | 1;
+	}
+}
