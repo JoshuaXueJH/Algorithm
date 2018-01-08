@@ -9,13 +9,18 @@ import java.util.Queue;
 public class No17_7 {
 	public static void main(String[] args) {
 		HashMap<String, Integer> list = new HashMap<String, Integer>();
-		list.put("John", 15);
-		list.put("Jon", 12);
-		list.put("Chris", 13);
-		list.put("Kris", 4);
-		list.put("Christopher", 19);
+		list.put("John", 10);
+		list.put("Jon", 3);
+		list.put("Davis", 2);
+		list.put("Kari", 3);
+		list.put("Johnny", 11);
+		list.put("Carlton", 8);
+		list.put("Carleton", 2);
+		list.put("Jonathan", 9);
+		list.put("Carrie", 5);
 
-		String[][] pairs = { { "Jon", "John" }, { "John", "Johnny" }, { "Chris", "Kris" }, { "Chris", "Christopher" } };
+		String[][] pairs = { { "Jonathan", "John" }, { "Jon", "Johnny" }, { "Johnny", "John" }, { "Kari", "Carrie" },
+				{ "Carleton", "Carlton" } };
 
 		No17_7 instance = new No17_7();
 		HashMap<String, Integer> newList = instance.mergeNames(list, pairs);
