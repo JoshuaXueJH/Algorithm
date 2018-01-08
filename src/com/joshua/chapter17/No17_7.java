@@ -1,5 +1,6 @@
 package com.joshua.chapter17;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -33,7 +34,8 @@ public class No17_7 {
 			if (synonyms.size() > 0) { // has synonym
 				boolean found = false;
 				for (String synonym : synonyms) {
-					if (newList.containsKey(synonym)) { // synonym in the newList
+					if (newList.containsKey(synonym)) { // synonym in the
+														// newList
 						newList.put(synonym, newList.get(synonym) + list.get(name));
 						found = true;
 						break;
@@ -41,7 +43,8 @@ public class No17_7 {
 				}
 
 				if (!found) {
-					newList.put(name, list.get(name)); // synonym not in the newList
+					newList.put(name, list.get(name)); // synonym not in the
+														// newList
 				}
 			} else { // no sysnonyms
 				newList.put(name, list.get(name));
@@ -52,13 +55,21 @@ public class No17_7 {
 	}
 
 	public HashSet<String> getSynonyms(String[][] pairs, String name) {
+		ArrayList<HashSet<String>> cache = new ArrayList<HashSet<String>>();
+		for (HashSet<String> entry : cache) {
+			if (entry.contains(name)) {
+				return entry;
+			}
+		}
+
 		HashSet<String> synonyms = new HashSet<String>();
 		Queue<String> queue = new LinkedList<String>();
 		queue.add(name);
 
 		while (!queue.isEmpty()) {
+			String synonym;
 			for (int i = 0; i < pairs.length; i++) {
-				String synonym = findNameFromLine(pairs, i, queue.peek());
+				synonym = findNameFromLine(pairs, i, queue.peek());
 
 				if (synonym != null && !synonym.isEmpty() && !synonym.equals(name)) {
 					if (!synonyms.contains(synonym)) {
@@ -70,6 +81,7 @@ public class No17_7 {
 			queue.remove();
 		}
 
+		cache.add(synonyms);
 		return synonyms;
 	}
 
