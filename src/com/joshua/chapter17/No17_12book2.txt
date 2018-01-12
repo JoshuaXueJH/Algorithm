@@ -1,0 +1,29 @@
+public BiNode convert(BiNode root){
+	if(root == null) return null;
+
+	BiNode left = convert(root.node1);
+	BiNode right = convert(root.node2);
+
+	if(left != null){
+		conact(getTail(left), root);
+	}
+
+	if(right != null){
+		conact(root, right);
+	}
+	
+	return left == null ? root : left;
+}
+
+public void conact(BiNode first, BiNode second){
+	first.node2 = second;
+	second.node1 = first;
+}
+
+public BiNode getTail(BiNode node){
+	if(node == null) return null;
+	while(node.node2 != null){
+		node = node.node2;
+	}
+	return node;
+}

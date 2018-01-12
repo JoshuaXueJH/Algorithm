@@ -1,0 +1,42 @@
+public BiNode convert(BiNode root){
+	BiNode head = convertToCircular(root);
+	head.node1.node2 = null;
+	head.node1 = null;
+	return head;
+}
+
+public BiNode convertToCircular(BiNode root){
+	if(root == null) return null;
+
+	BiNode left = convertToCircular(root.node1);
+	BiNode right = convertToCircular(root.node2);
+
+	if(left == null && right == null){
+		root.node1 = root;
+		root.node2 = root;
+		return root;
+	}
+
+	if(left != null){
+		conact(left.node1, root);
+	}else{
+		conact(right.node2, root);
+	}
+
+	if(right != null){
+		conact(root, right);
+	}else{
+		conact(root, left);
+	}
+
+	if(left != null && right != null){
+		conact(right.left, left);
+	}
+
+	return left == null ? root : left;
+}
+
+public void conact(BiNode first, BiNode second){
+	first.node2 = second;
+	second.node1 = first;
+}
