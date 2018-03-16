@@ -1,10 +1,10 @@
 package com.joshua.interview;
 
-public class YHClass {
+public class ListAndPosition {
 	private char[] chs;
 	private int partition;
 
-	public YHClass(char[] chs, int partition) {
+	public ListAndPosition(char[] chs, int partition) {
 		this.chs = chs;
 		this.partition = partition;
 	}
